@@ -1,11 +1,18 @@
-FROM node:18-alpine
-
+FROM node:18-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
 
 COPY . .
+RUN npm run build
+
+FROM node:18-alpine
+WORKDIR /app
+
+RUN npm i -g serve
+
+COPY --from=build /app/dist/magement-system-fe ./dist
 
 EXPOSE 4200
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+CMD ["serve", "-s", "dist", "-l", "4200"]

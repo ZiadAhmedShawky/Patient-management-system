@@ -1,0 +1,134 @@
+<app-header></app-header>
+<div
+  class="card-header"
+  style="float: right; margin-right: 50px; margin-top: 15px"
+>
+  <h2 class="title" style="font-size: 50px">Patients</h2>
+
+  <button
+    mat-raised-button
+    color="primary"
+    style="margin-right: 25px;"
+    *ngIf="checkAuthority()"
+    (click)="goToCreatePatient()"
+  >
+    + Create Patient
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="checkAuthority()"
+    (click)="navigateToRegisteration()"
+  >
+    + Create User
+  </button>
+</div>
+
+<div class="patients-page">
+  <div class="patients-card">
+
+    <!-- Patients Table -->
+    <table
+      mat-table
+      [dataSource]="data"
+      matSort
+      (matSortChange)="loadData(undefined, $event)"
+      class="patients-table"
+    >
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- First Name -->
+      <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+      </ng-container>
+
+      <!-- Last Name -->
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+      </ng-container>
+
+      <!-- Date of Birth -->
+      <ng-container matColumnDef="dateOfBirth">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Birth</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.dateOfBirth | date : "yyyy-MM-dd" }}
+        </td>
+      </ng-container>
+
+      <!-- Email -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+        <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+      </ng-container>
+
+      <!-- Phone -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+        <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            *ngIf="checkAuthority()"
+            mat-icon-button
+            color="primary"
+            matTooltip="Update patient"
+            (click)="updatePatient(row.id)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            *ngIf="checkAuthority()"
+            mat-icon-button
+            color="warn"
+            matTooltip="Delete patient"
+            (click)="deletePatient(row.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <button
+            *ngIf="!checkAuthority()"
+            mat-icon-button
+            color="warn"
+            matTooltip="View patient"
+            (click)="getPatientById(row.id)"
+          >
+            <mat-icon>visibility</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            color="accent"
+            matTooltip="Appointments"
+            (click)="goToAppointments(row.id)"
+          >
+            <mat-icon>event</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="pageSize"
+      (page)="loadData($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>

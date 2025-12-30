@@ -1,0 +1,49 @@
+<div>
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="logo">Patient Management System Register</h1>
+
+      <form>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="user.email"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="user.password"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="role">Role</label>
+          <select id="role" name="role" [(ngModel)]="user.roles" required>
+            <option value="" disabled selected>Select Role</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="USER">USER</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary" (click)="register()">
+          Save
+        </button>
+
+        <button type="button" class="btn secondary" (click)="cancel()">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<form #f="ngForm" (ngSubmit)="save()" novalidate>
+  <div class="grid">
+    <div class="field">
+      <label for="firstName">First name</label>
+      <input
+        id="firstName"
+        name="firstName"
+        type="text"
+        [disabled]="mode==2"
+        [(ngModel)]="patient.firstName"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label for="lastName">Last name</label>
+      <input
+        id="lastName"
+        name="lastName"
+        type="text"
+        [disabled]="mode==2"
+        [(ngModel)]="patient.lastName"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label for="dateOfBirth">Date of birth</label>
+      <input
+        id="dateOfBirth"
+        name="dateOfBirth"
+        type="date"
+        [disabled]="mode==2"
+        [(ngModel)]="patient.dateOfBirth"
+        required
+      />
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [disabled]="mode==2"
+        [(ngModel)]="patient.email"
+        required
+        email
+      />
+    </div>
+
+    <div class="field">
+      <label for="phone">Phone</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        [disabled]="mode==2"
+        [(ngModel)]="patient.phone"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn secondary" (click)="cancel()">Cancel</button>
+
+    <!-- IMPORTANT: submit triggers ngSubmit -->
+    <button type="submit" *ngIf="mode!=2" class="btn primary" [disabled]="f.invalid">
+      Save
+    </button>
+  </div>
+</form>

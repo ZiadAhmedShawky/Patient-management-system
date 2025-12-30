@@ -1,0 +1,35 @@
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: PATIENT_SYSTEM
+    ports:
+      - "3307:3306"
+
+  backend:
+    build: ./backend/mangement-system
+    container_name: spring-backend
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/PATIENT_SYSTEM
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  frontend:
+    build: ./magement-system-fe
+    container_name: angular-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "4200:4200"

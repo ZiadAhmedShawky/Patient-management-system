@@ -1,0 +1,88 @@
+<app-header></app-header>
+
+<div
+  class="card-header"
+  style="float: right; margin-right: 50px; margin-top: 15px"
+>
+  <h2 class="title" style="font-size: 50px">Appointments</h2>
+</div>
+
+<div class="patients-page">
+  <div class="patients-card">
+    <table
+      mat-table
+      [dataSource]="data"
+      matSort
+      (matSortChange)="getAppointments(undefined, $event)"
+      class="patients-table"
+    >
+      <!-- ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <!-- First Name -->
+      <ng-container matColumnDef="appointmentDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.appointmentDate | date : "yyyy-MM-dd" }}</td>
+      </ng-container>
+
+      <!-- Last Name -->
+      <ng-container matColumnDef="reason">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
+        <td mat-cell *matCellDef="let row">{{ row.reason }}</td>
+      </ng-container>
+
+      <!-- Date of Birth -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.status }}
+        </td>
+      </ng-container>
+
+     
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            *ngIf="checkAuthority()"
+            mat-icon-button
+            color="primary"
+            matTooltip="Update patient"
+            (click)="updateAppointment(row.id)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            *ngIf="checkAuthority()"
+            mat-icon-button
+            color="warn"
+            matTooltip="Delete appointment"
+            (click)="deleteAppointment(row.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="pageSize"
+      (page)="getAppointments($event)"
+    >
+    </mat-paginator>
+  </div>
+  
+</div>

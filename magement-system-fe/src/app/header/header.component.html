@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="app-header">
+  <span class="brand">
+    <mat-icon class="brand-icon">local_hospital</mat-icon>
+    Management System
+  </span>
+
+  <span class="spacer"></span>
+
+  <button mat-button (click)="navigateToPatient()">
+    <mat-icon>people</mat-icon>
+    Patients
+  </button>
+
+  <button mat-button (click)="navigateToAppointment()">
+    <mat-icon>event</mat-icon>
+    Appointments
+  </button>
+
+  <button mat-stroked-button color="warn" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+
+   <button mat-stroked-button color="warn" *ngIf="checkAuthority()" (click)="navigateToRegisteration()">
+    <mat-icon>register</mat-icon>
+    Register 
+  </button>
+</mat-toolbar>

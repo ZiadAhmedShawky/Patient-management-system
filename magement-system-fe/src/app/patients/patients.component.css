@@ -1,0 +1,67 @@
+.patients-page {
+  min-height: calc(100vh - 64px); 
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding: 24px;
+}
+
+.patients-card {
+  width: min(1100px, 100%);
+  padding: 16px 16px 8px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  background: #fff;
+  overflow: hidden;
+}
+
+.patients-table {
+  width: 100%;
+}
+
+.patients-table .mat-header-cell,
+.patients-table .mat-cell {
+  padding: 14px 18px;     
+  text-align: center;     
+  white-space: nowrap;    
+}
+
+.patients-table .mat-header-cell {
+  font-weight: 700;
+}
+
+.patients-table .mat-row:nth-child(even) {
+  background: rgba(0,0,0,0.02);
+}
+
+::ng-deep .mat-paginator-container {
+  justify-content: center;
+}
+.square-card {
+  width: 900px;
+  height: 900px;   /* ✅ large square */
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.page-layout {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  justify-content: flex-end; /* right */
+  align-items: center;       /* middle vertically */
+  padding: 24px;
+}
+
+.table-wrap {
+  flex: 1;
+  overflow: auto;
+  border-radius: 8px;
+}
+
+.patients-table {
+  width: 100%;
+  table-layout: fixed;
+}

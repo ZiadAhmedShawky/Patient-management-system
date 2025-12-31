@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.teaching.system.teaching_system.entity.UserInfo;
+import com.patient.mangement_system.entity.UserInfo;
+
+
 
 public class UserInfoDetails implements UserDetails {
 

@@ -39,7 +39,6 @@ export class AppointmentRegisterationComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.mode = +params['mode'];
       this.id = +params['id'];
-      this.patientId =params['patientId'];
 
 
 
@@ -76,6 +75,7 @@ export class AppointmentRegisterationComponent implements OnInit {
   save() {
     this.appointmentService.createAppointment(this.appointment).subscribe(
       () => {
+        this.appointment.patientId = this.patientId;
         this.router.navigate(['/appointments']);
       },
       (error) => {

@@ -63,7 +63,7 @@ public class SecurityConfig {
                         .requestMatchers("/patient/**").hasAnyAuthority("USER", "ADMIN")
                         .requestMatchers("/notification/**").hasAnyAuthority("USER", "ADMIN")
                         .requestMatchers("/appointment/save","/appointment/delete/**").hasAuthority("ADMIN")
-                        .requestMatchers("/appointment/**").permitAll()
+                        .requestMatchers("/appointment/**").hasAnyAuthority("ADMIN","USER")
                         // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )

@@ -32,18 +32,17 @@ export class AppointmentRegisterationComponent implements OnInit {
     private appointmentService: AppointmentService,
     private patientService: PatientsService,
     private notificationService: NotificationService,
-    private dialog: MatDialog,private auth: AuthService,
+    private dialog: MatDialog,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.mode = +params['mode'];
       this.id = +params['id'];
+      this.patientId = +params['patientId'];
 
-
-
-
-       if (this.mode == 1&& this.auth.getUserRoles().includes('ADMIN')) {
+      if (this.mode == 1 && this.auth.getUserRoles().includes('ADMIN')) {
         this.appointmentService.getAppointmentById(this.id).subscribe((res) => {
           this.appointment = res;
           this.patientId = this.appointment.patientId!;
@@ -54,9 +53,10 @@ export class AppointmentRegisterationComponent implements OnInit {
 
           this.loadData();
         });
-      }else if(this.mode==2){
+      } else if (this.mode == 2) {
         this.loadData();
-      }else{
+      } else {
+        this.appointment.patientId = this.patientId;
         this.loadData();
       }
     });
@@ -75,7 +75,8 @@ export class AppointmentRegisterationComponent implements OnInit {
   save() {
     this.appointmentService.createAppointment(this.appointment).subscribe(
       () => {
-        this.appointment.patientId = this.patientId;
+        console.log(this.appointment);
+        
         this.router.navigate(['/appointments']);
       },
       (error) => {
